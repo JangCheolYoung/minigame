@@ -5,10 +5,13 @@ let timerEl = document.getElementById("timer");
 let levelInfo = document.getElementById("level-info");
 let resultBox = document.getElementById("result");
 let resultMsg = document.getElementById("result-message");
+let scoreInfo = document.getElementById("score-info");
 let timer;
 let timeLimit = 30;
 let flippedCards = [];
 let matched = 0;
+let score = 0;
+let gameOver = false;
 
 function getGridSize(level) {
   const sizes = [
@@ -18,10 +21,12 @@ function getGridSize(level) {
 }
 
 function startGame() {
+  gameOver = false;
   resultBox.classList.add("hidden");
   board.innerHTML = "";
   flippedCards = [];
   matched = 0;
+  scoreInfo.textContent = "점수: " + score;
   levelInfo.textContent = "레벨: " + level;
   const [rows, cols] = getGridSize(level);
   board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
@@ -47,7 +52,6 @@ function startGame() {
     board.appendChild(card);
   });
 
-  // 레벨에 따른 자동 오픈 시간 계산
   const revealTime = Math.min(3000 + (level - 1) * 500, 6500);
   document.querySelectorAll(".card").forEach(c => c.classList.add("flip"));
   setTimeout(() => {
@@ -57,6 +61,7 @@ function startGame() {
 }
 
 function flipCard(card, num) {
+  if (gameOver) return;
   if (card.classList.contains("flip") || flippedCards.length >= 2) return;
   card.classList.add("flip");
   flippedCards.push({ card, num });
@@ -65,10 +70,12 @@ function flipCard(card, num) {
     const [first, second] = flippedCards;
     if (first.num === second.num) {
       matched += 1;
+      score += 10;
+      scoreInfo.textContent = "점수: " + score;
       flippedCards = [];
       if (matched === board.children.length / 2) {
         clearInterval(timer);
-        level += 1;
+        gameOver = true;
         showResult("성공! 다음 레벨로!");
       }
     } else {
@@ -89,6 +96,7 @@ function startTimer() {
     timerEl.textContent = `남은 시간: ${time}초`;
     if (time === 0) {
       clearInterval(timer);
+      gameOver = true;
       showResult("시간 초과! 실패!");
     }
   }, 1000);
