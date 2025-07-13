@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>기억력 향상 게임</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0; padding: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      height: 100vh; background: #f0f4f8;
+    }
+    #game-container {
+      width: 90vw;
+      max-width: 400px;
+      text-align: center;
+    }
+    #cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .card {
+      background: #1976d2;
+      border-radius: 8px;
+      color: white;
+      font-size: 2em;
+      display: flex; align-items: center; justify-content: center;
+      height: 70px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .flipped {
+      background: #81d4fa;
+      color: #1976d2;
+      cursor: default;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+    #ad-banner {
+      margin-top: 15px;
+      height: 60px;
+      background: #ddd;
+      border-radius: 6px;
+      line-height: 60px;
+      color: #555;
+    }
+    button {
+      background: #1976d2;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <h1>기억력 향상 게임</h1>
+    <div id="cards"></div>
+    <div id="result"></div>
+    <div id="ad-banner">[광고 배너 영역]</div>
+    <button id="start-btn">게임 시작</button>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
