@@ -29,7 +29,7 @@ function startGame() {
   scoreInfo.textContent = "점수: " + score;
   levelInfo.textContent = "레벨: " + level;
   const [rows, cols] = getGridSize(level);
-  board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  board.style.gridTemplateColumns = `repeat(${cols}, minmax(50px, 1fr))`;
   let numPairs = (rows * cols) / 2;
   let numbers = [];
   for (let i = 1; i <= numPairs; i++) {
@@ -77,6 +77,8 @@ function flipCard(card, num) {
         clearInterval(timer);
         gameOver = true;
         showResult("성공! 다음 레벨로!");
+        level++;
+        setTimeout(startGame, 2000);
       }
     } else {
       setTimeout(() => {
